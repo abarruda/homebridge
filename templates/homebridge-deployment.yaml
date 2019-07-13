@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-deployment
+  labels:
+    app: {{ .Chart.Name }}
+
+spec:
+  
+  replicas: {{ .Values.replicaCount }}
+  
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+
+    spec:
+
+      containers:
+        - name: {{ .Chart.Name }}-deployment
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          securityContext:
+            privileged: true
+
+          env:
+            - name: PGID
+              value: "{{.Values.environment.pgid }}"
+            - name: PUID
+              value: "{{.Values.environment.puid }}"
+            - name: HOMEBRIDGE_CONFIG_UI
+              value: "{{.Values.environment.ui.enabled }}"
+            - name: HOMEBRIDGE_CONFIG_UI_PORT
+              value: "{{.Values.environment.ui.port }}"
+
+          ports:
+            - name: {{ .Values.ports.ui.name }}
+              containerPort: {{ .Values.ports.ui.number }}
+              protocol: {{ .Values.ports.ui.protocol }}
+
+            - name: {{ .Values.ports.service.name }}
+              containerPort: {{ .Values.ports.service.number }}
+              protocol: {{ .Values.ports.service.protocol }}
+
+      hostNetwork: true

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-service
+  annotations:
+    metallb.universe.tf/allow-shared-ip: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+
+spec:
+  selector:
+    app: {{ .Chart.Name }}
+  externalTrafficPolicy: Local
+  sessionAffinity: None
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.service.ip }}
+
+  ports:
+  - name: {{ .Values.ports.ui.name }}
+    port: {{ .Values.ports.ui.number }}
+    protocol: {{ .Values.ports.ui.protocol }}
+    targetPort: {{ .Values.ports.ui.name }}
+  - name: {{ .Values.ports.service.name }}
+    port: {{ .Values.ports.service.number }}
+    protocol: {{ .Values.ports.service.protocol }}
+    targetPort: {{ .Values.ports.service.name }}

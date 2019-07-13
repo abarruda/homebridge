@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image: 
+  name: oznu/homebridge
+  tag: raspberry-pi
+  pullPolicy: IfNotPresent
+
+environment:
+  pgid: 1000
+  puid: 1000
+  ui:
+    enabled: 1
+    port: 80
+
+ports:
+
+  ui:
+    name: ui-http
+    number: 80
+    protocol: TCP
+
+  service:
+    name: service-mdns
+    number: 51826
+    protocol: TCP
+
+service:
+  ip: 
