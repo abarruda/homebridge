@@ -32,13 +32,15 @@ spec:
 
           env:
             - name: PGID
-              value: "{{.Values.environment.pgid }}"
+              value: "{{ .Values.environment.pgid }}"
             - name: PUID
-              value: "{{.Values.environment.puid }}"
+              value: "{{ .Values.environment.puid }}"
             - name: HOMEBRIDGE_CONFIG_UI
-              value: "{{.Values.environment.ui.enabled }}"
+              value: "{{ .Values.environment.ui.enabled }}"
             - name: HOMEBRIDGE_CONFIG_UI_PORT
-              value: "{{.Values.environment.ui.port }}"
+              value: "{{ .Values.environment.ui.port }}"
+            - name: TZ
+              value: "{{ .Values.environment.timezone }}"
 
           ports:
             - name: {{ .Values.ports.ui.name }}

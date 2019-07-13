@@ -11,6 +11,7 @@ environment:
   ui:
     enabled: 1
     port: 80
+  timezone: America/Los_Angeles
 
 ports:
 
