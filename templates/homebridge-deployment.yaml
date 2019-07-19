@@ -22,10 +22,38 @@ spec:
 
     spec:
 
+      volumes:
+
+        - name: config
+          configMap:
+            name: {{ .Values.config.configMapName }}
+
+        - name: homebridge-home
+          flexVolume:
+            driver: "fstab/cifs"
+            fsType: "cifs"
+            secretRef:
+              name: "{{ .Values.secrets.storage.name }}"
+            options:
+              networkPath: "{{ .Values.secrets.storage.networkPath }}"
+              mountOptions: "{{ .Values.storage.mountOptions }}"
+
       containers:
         - name: {{ .Chart.Name }}-deployment
-          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.digest }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          volumeMounts:
+            - name: homebridge-home
+              mountPath: /homebridge
+
+            - name: config
+              mountPath: /homebridge/config.json
+              subPath: config.json
+
+            - name: config
+              mountPath: /homebridge/package.json
+              subPath: package.json
 
           securityContext:
             privileged: true
@@ -41,6 +69,8 @@ spec:
               value: "{{ .Values.environment.ui.port }}"
             - name: TZ
               value: "{{ .Values.environment.timezone }}"
+            - name: PACKAGES
+              value: "{{ .Values.environment.packages }}"
 
           ports:
             - name: {{ .Values.ports.ui.name }}
