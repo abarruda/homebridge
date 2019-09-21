@@ -40,3 +40,8 @@ secrets:
     networkPath:
     user:
     password:
+
+affinity:
+  weight: 100
+  label: 
+  value:
