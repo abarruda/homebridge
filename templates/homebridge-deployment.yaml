@@ -28,14 +28,14 @@ spec:
           configMap:
             name: {{ .Values.config.configMapName }}
 
-        - name: homebridge-home
+        - name: homebridge-persist
           flexVolume:
             driver: "fstab/cifs"
             fsType: "cifs"
             secretRef:
               name: "{{ .Values.secrets.storage.name }}"
             options:
-              networkPath: "{{ .Values.secrets.storage.networkPath }}"
+              networkPath: "{{ .Values.secrets.storage.networkPath }}/persist"
               mountOptions: "{{ .Values.storage.mountOptions }}"
 
       containers:
@@ -44,8 +44,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
           volumeMounts:
-            - name: homebridge-home
-              mountPath: /homebridge
+            - name: homebridge-persist
+              mountPath: /homebridge/persist
 
             - name: config
               mountPath: /homebridge/config.json

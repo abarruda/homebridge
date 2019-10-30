@@ -1,12 +1,12 @@
 replicaCount: 1
 
 image: 
-  digest: oznu/homebridge@sha256:b6d397dd487068dfa20b0119ffd52135039675050d8e9e491e8554873d2121a4
+  digest: oznu/homebridge@sha256:ecf944ab0edc9fced9495ab9f9c52aff5bd86ab02c74dab883dc9a82d79a3eb9
   pullPolicy: IfNotPresent
 
 environment:
-  pgid: 1000
-  puid: 1000
+  pgid: 0
+  puid: 0
   ui:
     enabled: 1
     port: 80
