@@ -19,4 +19,4 @@ Any changes to the ConfigMap that contains Homebridge configuration will require
 
 ## Data
 
-Data in `/homebridge/persist` is retained in a volume across containers.  This contains data about Accessories and devices connected to Homebridge.  If this data is deleted or no present, the "Home" in iOS will not respond and reconfiguring the device may be necessary.
+Data in `/homebridge/persist` is retained in a volume across containers.  This contains data about Accessories and devices connected to Homebridge.  If this data is deleted or not present, the "Home" in iOS will not respond and reconfiguring the device may be necessary.

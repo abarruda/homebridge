@@ -29,14 +29,8 @@ spec:
             name: {{ .Values.config.configMapName }}
 
         - name: homebridge-persist
-          flexVolume:
-            driver: "fstab/cifs"
-            fsType: "cifs"
-            secretRef:
-              name: "{{ .Values.secrets.storage.name }}"
-            options:
-              networkPath: "{{ .Values.secrets.storage.networkPath }}/persist"
-              mountOptions: "{{ .Values.storage.mountOptions }}"
+          persistentVolumeClaim:
+            claimName: {{ .Chart.Name }}-pvclaim
 
       containers:
         - name: {{ .Chart.Name }}-deployment

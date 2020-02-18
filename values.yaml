@@ -31,16 +31,6 @@ service:
 config:
   configMapName: homebridge-config
 
-storage:
-  mountOptions: "vers=1.0,dir_mode=0755,file_mode=0644,noperm"
-
-secrets:
-  storage:
-    name: homebridge-storage-secret
-    networkPath:
-    user:
-    password:
-
 affinity:
   weight: 100
   label: 
