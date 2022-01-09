@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homebridge-config
+data:
+  config.json: |-
+  {{- $configFile := printf .Values.config.configFile.path }}
+  {{ (.Files.Get $configFile) | nindent 4 }}
+
+
+
+  package.json: |-
+  {{- $packageFile := printf .Values.config.packageFile.path }}
+  {{ (.Files.Get $packageFile) | nindent 4 }}

@@ -16,6 +16,13 @@ spec:
   
   template:
     metadata:
+      annotations:
+        # invokes a redeployment if configuration changes
+        {{- $configFile := printf .Values.config.configFile.path }}
+        {{- $packageFile := printf .Values.config.packageFile.path }}
+        config-sha: {{ sha256sum (.Files.Get $configFile) }}
+        package-sha: {{ sha256sum (.Files.Get $packageFile) }}
+
       labels:
         app: {{ .Chart.Name }}
         app.kubernetes.io/instance: {{ .Release.Name }}
@@ -26,7 +33,7 @@ spec:
 
         - name: config
           configMap:
-            name: {{ .Values.config.configMapName }}
+            name: homebridge-config
 
         - name: homebridge-persist
           persistentVolumeClaim:
@@ -41,9 +48,11 @@ spec:
             - name: homebridge-persist
               mountPath: /homebridge/persist
 
+            {{- if .Values.config.configFile.enabled }}
             - name: config
               mountPath: /homebridge/config.json
               subPath: config.json
+            {{- end }}
 
             - name: config
               mountPath: /homebridge/package.json

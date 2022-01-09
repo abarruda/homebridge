@@ -1,1 +1,4 @@
 run.sh
+config/*
+run/run-rpi.sh
+run/run-test-rpi.sh

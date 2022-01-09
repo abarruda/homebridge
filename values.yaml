@@ -26,12 +26,16 @@ ports:
     protocol: TCP
 
 service:
-  ip: 
-
-config:
-  configMapName: homebridge-config
+  ip:
 
 affinity:
   weight: 100
   label: 
   value:
+
+config:
+  configFile:
+    enabled: true
+    path: config/config.json
+  packageFile:
+    path: config/package.json
