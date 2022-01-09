@@ -1,0 +1,18 @@
+{
+    "bridge": {
+        "name": "Test Home Homebridge",
+        "username": "AA:AA:AA:AA:AA:AA",
+        "pin": "000-00-123",
+        "port": 12345,
+        "advertiser": "ciao"
+    },
+    "accessories": [
+    ],
+    "platforms": [
+        {
+            "platform": "config",
+            "name": "Config",
+            "port": 80
+        }
+    ]
+}

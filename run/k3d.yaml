@@ -1,0 +1,7 @@
+apiVersion: k3d.io/v1alpha2 # this will change in the future as we make everything more stable
+kind: Simple # internally, we also have a Cluster config, which is not yet available externally
+name: homebridge-cluster # name that you want to give to your cluster (will still be prefixed with `k3d-`)
+image: rancher/k3s:v1.17.0-k3s.1 # same as `--image rancher/k3s:v1.20.4-k3s1`
+servers: 1
+# registries: # define how registries should be created or used
+#   # create: true # creates a default registry to be used with the cluster; same as `--registry-create`
