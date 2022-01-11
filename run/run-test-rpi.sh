@@ -2,9 +2,11 @@
 
 set -e
 
+PACKAGE_FILE=config/test-package.json
 CONFIG_FILE=config/test-config.json
 
 helm lint $(pwd)/../.
+python -mjson.tool ../${PACKAGE_FILE}
 python -mjson.tool ../${CONFIG_FILE}
 
 helm upgrade --install \
@@ -18,5 +20,6 @@ test-homebridge \
 --set ports.service.number=12345 \
 --set config.configFile.enabled=false \
 --set config.configFile.path=${CONFIG_FILE} \
---set config.packageFile.path=config/test-package.json \
+--set config.packageFile.path=${PACKAGE_FILE} \
+--set environment.packages="ffmpeg\,netcat" \
 ../.
