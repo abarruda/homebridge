@@ -39,6 +39,10 @@ spec:
           persistentVolumeClaim:
             claimName: {{ .Chart.Name }}-pvclaim
 
+        - name: homebridge-accessories
+          persistentVolumeClaim:
+            claimName: {{ .Chart.Name }}-accessories
+
       containers:
         - name: {{ .Chart.Name }}-deployment
           image: "{{ .Values.image.digest }}"
@@ -47,6 +51,9 @@ spec:
           volumeMounts:
             - name: homebridge-persist
               mountPath: /homebridge/persist
+
+            - name: homebridge-accessories
+              mountPath: /homebridge/accessories
 
             {{- if .Values.config.configFile.enabled }}
             - name: config
